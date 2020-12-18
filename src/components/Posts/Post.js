@@ -5,7 +5,7 @@ import PostHeader from './PostHeader';
 
 const Post = props => {
   // 🔥 Make sure the parent of Post is passing the right props!
-  const { post, likePost } = props;
+  const { post, likePost, commentText, handleCommentTextChange } = props;
 
   return (
     <div className='post-border'>
@@ -24,6 +24,10 @@ const Post = props => {
       <LikeSection numberOfLikes={post.likes} likePost={() => likePost(post.id)} />
       {/* Comments also wants its props! */}
       <Comments comments={post.comments} />
+      <input 
+        type="text"
+        value={commentText}
+        onChange={() => handleCommentTextChange(post.id)} />
     </div>
   );
 };

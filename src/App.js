@@ -21,6 +21,15 @@ const App = () => {
   // To make the search bar work (which is stretch) we'd need another state to hold the search term.
   const [posts, setPosts] = useState(dummyData);
   const [searchTerm, setSearchTerm] = useState("");
+  const [commentText, setCommentText] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleCommentTextChange = (event) => {
+    setCommentText(event.target.value);
+  };
 
   const likePost = postId => {
     /*
@@ -34,15 +43,20 @@ const App = () => {
         - if the `id` of the post matches `postId`, return a new post object with the desired values (use the spread operator).
         - otherwise just return the post object unchanged.
      */
-    
-     setPosts(posts.map(post => post.id == postId ? { ...post, likes: post.likes + 1 } : post));
+
+     setPosts(posts.map(post => post.id === postId ? { ...post, likes: post.likes + 1 } : post));
   };
 
   return (
     <div className='App'>
       {/* Add SearchBar and Posts here to render them */}
-      <SearchBar />
-      <Posts likePost={likePost} posts={posts} />
+      <SearchBar searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
+      <Posts 
+        likePost={likePost} 
+        posts={posts} 
+        searchTerm={searchTerm} 
+        commentText={commentText} 
+        handleCommentTextChange={handleCommentTextChange} />
       {/* Check the implementation of each component, to see what props they require, if any! */}
     </div>
   );
